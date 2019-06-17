@@ -1,0 +1,453 @@
+<html>
+    
+    <head>
+        
+        <title>*hand.html</title>
+        
+        
+        <link rel="stylesheet" href="css/normalize.css">
+        <link rel="stylesheet" href="css/foundation.css">
+        <link rel="stylesheet" href="css/baseline.css">
+        <style>
+            
+            *{
+                margin: 0;
+                padding: 0;
+            }
+            
+            a, a:hover{
+                color: inherit;
+            }
+            
+            body.rulers{
+                margin: 25px 0 0 25px;
+            }
+            
+            body.black{
+                background: black;
+                color: white;
+            }
+            
+            body.blue{
+                background: blue;
+                color: white;
+            }
+            
+            body.serif{
+                font-family: serif;
+            }
+            
+            .winSize{
+                position: absolute;
+                width: 100%;
+                overflow: hidden;
+            }
+            
+            .text-serif{
+                font-family: serif;
+            }
+            
+            body.serif .text-serif{
+                font-family: sans-serif;
+            }
+            
+            .column-grid, .baseline-grid{
+                position: absolute;
+                top: 0;
+                left: 0;
+                width: 100%;
+                height: 100%;
+            }
+            
+            .hidden{
+                display: none;
+            }
+            
+            p{
+                -webkit-transition: font-size .1s, line-height .1s;
+            }
+            
+            .column-grid .gridline{
+                height: 100%;
+                border-left: 1px solid #0ff;
+                border-right: 1px solid #0ff;
+            }
+            
+            .column, .columns{
+                -webkit-transition: width .1s, height .1s, margin .1s, padding .1s, letter-spacing .1s, -webkit-transform .1s;
+            }
+            
+            .botborder{
+                border-bottom: 6px solid black;
+            }
+            
+            .dashbot{
+                border-bottom: 6px dashed black;
+            }
+            
+            .text-red{
+                color: red;
+            }
+            
+            .tip-right{
+                -webkit-transform: rotate(45deg);
+            }
+            
+            div.selected{
+                position: relative;
+                border: 1px solid #f00;
+                box-sizing: border-box;
+                margin-bottom: -1px;
+                margin-top: -1px;
+                margin-left: -1px;
+                margin-right: -1px;
+                transition: width .1s, height .1s;
+            }
+            
+            div.selected .handle{
+                width: 10px;
+                height: 10px;
+                background: white;
+                border: 1px solid red;
+                border-radius: 5px;
+                position: absolute;
+                margin: -5px 0 0 -5px;
+            }
+            
+            .handle.nw{top: 0; left: 0;}
+            .handle.n{top: 0; left: 50%;}
+            .handle.ne{top: 0; left: 100%;}
+            .handle.w{top: 50%; left: 0;}
+            .handle.e{top: 50%; left: 100%;}
+            .handle.sw{top: 100%; left: 0;}
+            .handle.s{top: 100%; left: 50%;}
+            .handle.se{top: 100%; left: 100%;}
+            
+            .lspacing-1{
+                letter-spacing: 1px;
+            }
+            
+            .lspacing-2{
+                letter-spacing: 2px;
+            }
+            
+            .lspacing-3{
+                letter-spacing: 3px;
+            }
+            
+            .lspacing-4{
+                letter-spacing: 4px;
+            }
+            
+            span.selected, p.selected{
+                color: white;
+                background-color: black;
+            }
+            
+            body.black span.selected, body.black p.selected{
+                color: black;
+                background-color: white;
+            }
+            
+            body.blue span.selected, body.blue p.selected{
+                color: black;
+                background-color: yellow;
+            }
+            
+            .textRed span.selected{
+                color: #00ffff !important;
+            }
+            
+            .text-right{
+                text-align: right;
+            }
+            
+            .text-center{
+                text-align: center;
+            }
+            
+            .text-justify{
+                text-align: justify;
+            }
+            
+        </style>
+        
+    </head>
+    
+    <body class="">
+        
+        <div class="baseline-grid hidden"></div>
+        
+        <div class='row column-grid hidden'>
+            <div class="small-1 column"><div class="gridline"></div></div>
+            <div class="small-1 column"><div class="gridline"></div></div>
+            <div class="small-1 column"><div class="gridline"></div></div>
+            <div class="small-1 column"><div class="gridline"></div></div>
+            <div class="small-1 column"><div class="gridline"></div></div>
+            <div class="small-1 column"><div class="gridline"></div></div>
+            <div class="small-1 column"><div class="gridline"></div></div>
+            <div class="small-1 column"><div class="gridline"></div></div>
+            <div class="small-1 column"><div class="gridline"></div></div>
+            <div class="small-1 column"><div class="gridline"></div></div>
+            <div class="small-1 column"><div class="gridline"></div></div>
+            <div class="small-1 column"><div class="gridline"></div></div>
+        </div>
+        
+        <div class="winSize">
+            
+            <div class="row">
+                
+                <div class="small-12 columns text-center">
+                    <p>THE GALLERY IS CURRENTLY UNDER CONSTRUCTION</p>
+                </div>
+                
+            </div>
+            
+            <div class="row">
+                
+                <div class="small-12 columns"
+                
+            </div>
+            
+        </div>
+        
+        <div class="row pad-top-1">
+            <div class="small-11 columns small-offset-1 pad-top-4 animate" id="title">
+                <div class="select">
+                    <p class="text-3"><b><span class="alter" data-options="HAND, hand.gallery">hand.gallery</span></b></p>
+                </div>
+            </div>
+        </div>
+        
+        <div class="row">
+            <div class="small-4 columns pad-top-1" id="underconstruction">
+                <div class="select">
+                    <p><i><span class="alter" data-options="Under Construction, Please Stand By, Coming Soon, Wait for It, 0% Complete, Work in Progress">Under Construction</span></i></p>
+                </div>
+            </div>
+        </div>
+        
+        <div class="row pad-top-2">
+            
+            <div class="small-6 columns" id="intro">
+                <div class="select">
+                    <p class="pad-bottom-1">
+                        Hand was <span class="alter" data-options="set up, founded, established, created">set up</span> in <span class="alter" data-options="f, F">f</span>ebruary 2014 to <span class="alter" data-options="challenge, upset, forget">challenge</span> the idea of the <span class="alter" data-options="graduate show, exhibition, gallery, artists' residency">graduate show</span> and to re-shape its <span class="alter" data-options="future, destiny">future</span>. We have since graduated, and the site has, too. In summer 2015 we will be re-<span class="alter" data-options="launching, born">launching</span> as hand.gallery.
+                    </p>
+                    <p>
+                        In addition to showcasing more exhibits we will be introducing new features including an online artist's residency space alongside our own editorial content.
+                    </p>
+                </div>
+            </div>
+        
+        </div>
+        
+        <div class="row pad-top-1">
+
+            <div class="small-2 columns" id="twitter">
+                <div class="select">
+                    <p><a href="twitter.com/hello_hand"><span class="alter" data-options="Twitter, @hello_hand">Twitter</span></a></p>
+                </div>
+            </div>
+
+        </div>
+        
+
+        <script src="js/vendor/jquery.js"></script>
+        <script src="js/foundation.js"></script>
+        <script>
+            
+            $(function(){
+                
+                var DELAY = 800;
+                
+                var anims = [
+                    'title, select, toggle text-right, toggle text-right and toggle text-center, toggle text-center and toggle text-right and wait 2, deselect',
+                    'title, select, toggle pad-top-3, deselect',
+                    'title, select, toggle lspacing-1, deselect',
+                    'intro, select, get p:first and toggle text-2 and wait 1.6, deselect',
+                    'intro, select, add lspacing-2 and wait 0.2, remove lspacing-1 and add lspacing-2, deselect and wait 2.5, select, remove lspacing-2 and add lspacing-1 and wait 0.2, remove lspacing-1, deselect',
+                    'title, select, toggle small-offset-1 and toggle small-11 and toggle small-12, deselect',
+                    'title, select, get p and add selected and wait 0.5, toggle text-serif and wait 1.2, deselect and get p and remove selected',
+                    'underconstruction, select, toggle small-offset-1, toggle pad-top-2, deselect',
+                    'underconstruction, select, get p and toggle text-2, deselect',
+                    'intro, select, toggle pad-top-1, deselect',
+                    'intro, select, toggle small-offset-2, deselect',
+                    'intro, select, toggle text-justify, deselect',
+                    'body, get .baseline-grid and toggle hidden, get .column-grid and toggle hidden',
+                    'twitter, select, toggle tip-right, deselect',
+                    'twitter, select, toggle small-offset-10 and toggle text-right, deselect',
+                    'twitter, select, get p and toggle text-2, deselect',
+                    'twitter, select, toggle pad-top-1, deselect',
+                    'body, remove blue and toggle black',
+                    'body, remove black and toggle blue',
+                    'body, get p and add selected, toggle serif, get p and remove selected'
+                ]
+                
+                var els = {
+                    win: $(window),
+                    body: $('body'),
+                    colgrid: $('.column-grid'),
+                    basegrid: $('.baseline-grid'),
+                    title: $('#title'),
+                    intro: $('#intro'),
+                    underconstruction: $('#underconstruction'),
+                    twitter: $('#twitter'),
+                    ws: $('.winSize')
+                };
+                
+                var alters = $('.alter');
+                
+                function alter(callback){
+                    
+                    var words = $(alters[Math.floor(Math.random() * alters.length)])
+                    
+                    words.addClass('selected');
+                    
+                    var opts = words.data('options').split(', ');
+                    
+                    var word;
+                    
+                    do{
+                        word = opts[Math.floor(Math.random() * opts.length)];
+                    } while ( word === words.text() );
+                    
+                    function type(element, word, letter){
+                        
+                        setTimeout(function(){
+                            
+                            element.text(word.substr(0,letter));
+                            
+                            if(letter > word.length) {
+                                element.removeClass('selected');
+                                setTimeout(callback, getDelay());
+                                return;
+                            }
+                            
+                            type(element, word, ++letter);
+                            
+                        }, getDelay() * .1);
+                        
+                    }
+                    
+                    type(words, word, 1);
+                    
+                }
+                
+                function animate(animation, callback, i){
+                    
+                    if(typeof animation === 'string') animation = animation.split(', ');
+                    if(i === undefined) i = 1;
+                    
+                    var delay = getDelay();
+                    
+                    if(i === animation.length) return setTimeout(callback, getDelay());
+                    
+                    var element = els[animation[0]];
+                    var step = animation[i];
+                    
+                    step = step.split(' and ');
+                    
+                    for (var j = 0; j < step.length; ++j){
+                        
+                        var action = step[j];
+                        
+                        if(action === 'select' || action === 'deselect'){
+                            element.selectBox();
+                            continue;
+                        }
+                        
+                        action = action.split(' ');
+                        
+                        var verb = action[0],
+                            noun = action[1];
+                            
+                        if(verb === 'add'){
+                            element.addClass(noun);
+                        } else if(verb === 'remove'){
+                            element.removeClass(noun);
+                        } else if(verb === 'toggle'){
+                            element.toggleClass(noun);
+                        } else if(verb === 'get'){
+                            element = element.find(noun);
+                        }else if (verb === 'wait'){
+                            delay *= parseInt(noun);
+                        }
+                        
+                    }
+                    
+                    setTimeout(function(){
+                        animate(animation, callback, ++i);
+                    }, delay );
+                    
+                };
+                
+                var then = Date.now();
+                
+                function getDelay(){
+                    var now = Date.now();
+                    var ret = DELAY * (1-((now - then) / 1000 / 120)) ;
+                    return ret;
+                }
+                
+                function loop(){
+                    
+                    Math.random() > .3 ? animate(anims[Math.floor(Math.random() * anims.length)], loop) : alter(loop);
+                    
+                }
+                
+                function layout(){
+                    els.ws.height(els.win.height());
+                }
+                
+                window.addEventListener('resize', layout);
+                
+                layout();
+                loop();
+                
+                
+                /*
+                setTimeout(function(){
+                    els.title.selectBox();
+                    setTimeout(function(){
+                        els.title.addClass('text-right');
+                        setTimeout(function(){
+                            els.title.removeClass('text-right').addClass('text-center');
+                            setTimeout(function(){
+                                els.title.removeClass('text-center').addClass('text-right');
+                                setTimeout(function(){
+                                    els.title.selectBox();
+                                }, 1000);
+                            }, 1300);
+                        }, 900)
+                    }, 1100);
+                }, 3000);
+                
+                */
+                
+            });
+            
+            var handles = [
+                $('<div class="handle nw"></div>'),
+                $('<div class="handle n"></div>'),
+                $('<div class="handle ne"></div>'),
+                $('<div class="handle e"></div>'),
+                $('<div class="handle w"></div>'),
+                $('<div class="handle sw"></div>'),
+                $('<div class="handle s"></div>'),
+                $('<div class="handle se"></div>'),
+            ];
+            
+            $.fn.selectBox = function(){
+                var sel = this.find('.select');
+                sel.toggleClass('selected').append(handles);
+                //$('body').toggleClass('baseline-grid');
+                //$('.column-grid').toggleClass('hidden');
+            }
+        
+
+        </script>
+        
+    </body>
+    
+</html>

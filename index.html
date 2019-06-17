@@ -1,0 +1,1062 @@
+<html>
+    
+    <head>
+        
+        <title>*hand.html</title>
+        
+        
+        <link rel="stylesheet" href="css/normalize.css">
+        <link rel="stylesheet" href="css/foundation.css">
+        <link rel="stylesheet" href="css/baseline.css">
+        <style>
+            
+            @font-face {
+                font-family: 'Aileron';
+                src: url("fonts/Aileron-Regular.otf");
+            }
+             
+            @font-face {
+                font-family: 'Aileron';
+                src: url("fonts/Aileron-Bold.otf");
+                font-weight: bold;
+            }
+            
+            @font-face {
+                font-family: 'Karla';
+                src: url("fonts/Karla-Regular.ttf");
+            }
+             
+            @font-face {
+                font-family: 'Karla';
+                src: url("fonts/Karla-Bold.ttf");
+                font-weight: bold;
+            }
+            
+            @font-face {
+                font-family: 'Playfair';
+                src: url("fonts/PlayfairDisplay-Regular.ttf");
+            }
+             
+            @font-face {
+                font-family: 'Playfair';
+                src: url("fonts/PlayfairDisplay-Bold.ttf");
+                font-weight: bold;
+            }
+            
+            @font-face {
+                font-family: 'Yesteryear';
+                src: url("fonts/Yesteryear-Regular.ttf");
+            }
+            
+            *{
+                margin: 0;
+                padding: 0;
+            }
+            
+            html, body{
+                height: 100%;
+                font-family: sans-serif;
+            }
+            
+            a, a:hover{
+                color: inherit;
+                border-bottom: 2px solid black;
+                box-sizing: border-box;
+            }
+            
+            body.rulers{
+                margin: 25px 0 0 25px;
+            }
+            
+            body.black{
+                background: black;
+                color: white;
+            }
+            
+            body.black .picture{
+                -webkit-filter: invert(100%);
+            }
+            
+            body.black a, body.black a:hover, body.blue a, body.blue a:hover{
+                border-bottom: 2px solid white;
+            }
+            
+            body.blue{
+                background: blue;
+                color: white;
+            }
+            
+            .winSize{
+                width: 100%;
+                overflow: hidden;
+                display: inline-block;
+            }
+            
+            .grids, .column-grid, .baseline-grid{
+                position: absolute;
+                top: 0;
+                left: 0;
+                bottom: 0;
+                right: 0;
+                width: 100%;
+                height: 100%;
+                z-index: -999;
+            }
+            
+            .hidden{
+                display: none;
+            }
+            
+            p{
+                -webkit-transition: font-size .1s, line-height .1s;
+            }
+            
+            .column-grid .gridline{
+                height: 100%;
+                border-left: 1px solid #0ff;
+                border-right: 1px solid #0ff;
+            }
+            
+            .column, .columns{
+                -webkit-transition: width .1s, height .1s, margin .1s, padding .1s, letter-spacing .1s, -webkit-transform .1s;
+            }
+            
+            .botborder{
+                border-bottom: 6px solid black;
+            }
+            
+            .dashbot{
+                border-bottom: 6px dashed black;
+            }
+            
+            .text-red{
+                color: red;
+            }
+            
+            .tip-right{
+                -webkit-transform: rotate(45deg);
+            }
+            
+            div.selected{
+                position: relative;
+                border: 1px solid #f00;
+                box-sizing: border-box;
+                margin-bottom: -1px;
+                margin-top: -1px;
+                margin-left: -1px;
+                margin-right: -1px;
+                transition: width .1s, height .1s;
+            }
+            
+            div.selected .handle{
+                width: 10px;
+                height: 10px;
+                background: white;
+                border: 1px solid red;
+                border-radius: 5px;
+                position: absolute;
+                margin: -5px 0 0 -5px;
+            }
+            
+            .picture{
+                width: 100%;
+                height: 100%;
+                background-size: cover;
+                background-position: center center;
+            }
+            
+            .empty .picture{
+                background-image: url('img/x.png') !important;
+                -webkit-filter: none !important;
+                background-size: 100% 100%;
+                box-sizing: border-box;
+                border: 1px solid cyan;
+            }
+            
+            .picture.stretch{
+                background-size: 100% 100%;
+            }
+            
+            .handle.nw{top: 0; left: 0;}
+            .handle.n{top: 0; left: 50%;}
+            .handle.ne{top: 0; left: 100%;}
+            .handle.w{top: 50%; left: 0;}
+            .handle.e{top: 50%; left: 100%;}
+            .handle.sw{top: 100%; left: 0;}
+            .handle.s{top: 100%; left: 50%;}
+            .handle.se{top: 100%; left: 100%;}
+            
+            .lspacing--5{
+                letter-spacing: -5px;
+            }
+
+            
+            span.selected, p.selected{
+                color: white;
+                background-color: black;
+            }
+            
+            body.black span.selected, body.black p.selected{
+                color: black;
+                background-color: white;
+            }
+            
+            body.blue span.selected, body.blue p.selected{
+                color: black;
+                background-color: yellow;
+            }
+            
+            .textRed span.selected{
+                color: #00ffff !important;
+            }
+            
+            .text-bold{
+                font-weight: bold;
+            }
+            
+            .text-right{
+                text-align: right;
+            }
+            
+            .text-center{
+                text-align: center;
+            }
+            
+            .text-justify{
+                text-align: justify;
+            }
+            
+            .text-caps{
+                text-transform: uppercase;
+            }
+            
+            ul {
+                list-style: none;
+                margin-left:0;
+            }
+            
+            .bg-black{
+                background: black;
+                color: white;
+            }
+            
+            body.black .bg-black{
+                background: white;
+                color: black;
+            }
+            
+            body.blue .bg-black{
+                color: blue;
+                background: white;
+            }
+            
+            .bg-black span.selected, .bg-black p.selected{
+                color: black;
+                background-color: white;
+            }
+            
+            body.black .bg-black span.selected, body.black .bg-black p.selected{
+                color: white;
+                background-color: black;
+            }
+            
+            body.blue .bg-black span.selected, body.blue .bg-black p.selected{
+                color: yellow;
+                background-color: black;
+            }
+            
+            .dot{
+                width: 1rem;
+                height: 1rem;
+                margin-left: -1rem;
+                margin-top: -1rem;
+                position: fixed;
+                border-radius: 50%;
+                background: black;
+                z-index: 1000;
+                /*LOL*/
+                display: none;
+            }
+            
+            body.blue .dot, body.black .dot{
+                background: white;
+            }
+            
+           #mc-email{
+                height: 2rem;
+            	font-size: 0.857rem;
+            	border: 0;
+            	margin: 0;
+            	border: 1px solid black !important;
+            }
+            
+            #mc-btn{
+                height: 2rem;
+                width: 100%;
+                background-color: white;
+                color: black;
+                border: 1px solid black !important;
+                border: 0;
+                margin: 0;
+                text-align: center;
+                padding: 0;
+            }
+            
+            body.blue #mc-email, body.blue #mc-btn{
+                color: blue;
+            }
+            
+        </style>
+        
+    </head>
+    
+    <body class="animate" data-changes="toggle: black; toggle: blue; font: sans-serif, serif, Georgia, Playfair, Aileron, Karla, Yesteryear">
+        
+        <div class="dot animate hidden" data-changes="move: random; toggle: hidden"></div>
+        <div class="dot animate hidden" data-changes="move: random; toggle: hidden"></div>
+        <div class="dot animate hidden" data-changes="move: random; toggle: hidden"></div>
+        <div class="dot animate hidden" data-changes="move: random; toggle: hidden"></div>
+        <div class="dot animate hidden" data-changes="move: random; toggle: hidden"></div>
+        <div class="dot animate hidden" data-changes="move: random; toggle: hidden"></div>
+
+        
+        <div class="grids fullHeight animate" data-changes="toggle: hidden">
+        
+            <div class="baseline-grid"></div>
+            
+            <div class='row column-grid'>
+                <div class="small-1 column"><div class="gridline"></div></div>
+                <div class="small-1 column"><div class="gridline"></div></div>
+                <div class="small-1 column"><div class="gridline"></div></div>
+                <div class="small-1 column"><div class="gridline"></div></div>
+                <div class="small-1 column"><div class="gridline"></div></div>
+                <div class="small-1 column"><div class="gridline"></div></div>
+                <div class="small-1 column"><div class="gridline"></div></div>
+                <div class="small-1 column"><div class="gridline"></div></div>
+                <div class="small-1 column"><div class="gridline"></div></div>
+                <div class="small-1 column"><div class="gridline"></div></div>
+                <div class="small-1 column"><div class="gridline"></div></div>
+                <div class="small-1 column"><div class="gridline"></div></div>
+            </div>
+            
+        </div>
+        
+        <div class="select">
+        
+            <div class="row pad-top-1">
+                
+                <div class="small-6 columns text-right text-1 text-caps animate" data-changes="textAlign: left, center, right; textSize: 1, 1-5, 2, toggle: text-caps">
+                    <div class="select">
+                    
+                        <p>The gallery is <span class="animate" data-changes="text: currently, ">currently</span><span class="animate" data-changes="text: <br>,  "><br></span><span class="animate" data-changes="text: under construction, standing by, coming soon, developing, 0% complete, a work in progress">under construction</span></p>
+                        
+                    </div>
+                </div>
+                
+                <div class="small-6 columns animate" data-changes="offset: 2, 4, 6; toggle: text-caps">
+                    <div class="select">
+                        <div class="row">
+                            <form id="mc-form">
+                                <div class="small-8 columns">
+                                    <input id="mc-email" class="mc-email" type="email" placeholder="e-mail address">
+                                </div>
+                                <div class="small-4 columns">
+                                    <button id="mc-btn" type="submit" id="mc-subscribe">Subscribe</button>
+                                </div>
+                            </form>
+                        </div>
+                    </div>
+                </div>
+                
+                
+            </div>
+            
+            <div class="row">
+                <div class="small-12 columns text-center pad-top-5 animate" data-changes="textAlign: left, right, center; padTop: 2, 3, 5,">
+                    <div class="select">
+                        
+                        <p class="text-bold text-8 lspacing--5 animate" data-changes="text: Hand&#8203;.Gallery, hand, HAND; textSize: 6, 7, 8; letterSpacing: -8, -5, 0">Hand&#8203;.Gallery</p>
+                        
+                    </div>
+                </div>
+            </div>
+            
+            <div class="row">
+                
+                <!--
+                
+                <div class="small-4 columns small-offset-1 height-15 animate pad-top-3" data-changes="height: 8, 15, 20; width: 4, 2, 6; offset: 0, 1, 2">
+                    <div class="select">
+                        <div class="picture stretch" style="background-image: url('img/color-picker.png');"></div>
+                    </div>
+                </div>
+                
+                -->
+                <div class="small-6 columns text-2 pad-top-2 animate small-offset-6" data-changes="toggle: text-caps; width: 6, 3; textAlign: right, left, offset: 0, 2, 4, 6">
+                    <div class="select">
+                        
+                        <p class="text-bold"><span class="animate" data-changes="text: Due b, B">Due b</span>ack <span class="animate" data-changes="text: in,  "></span> summer 2015</p>
+                        
+                    </div>
+                </div>
+                
+            </div>
+    
+            <div class="row">
+                <div class="small-6 columns text-right pad-top-2 animate" data-changes="textAlign: left, right; offset: 6, 0; textSize: 1, 2; toggle: text-caps">
+                    <div class="select">
+                        <p><a href="mailto:info@hand.gallery"><span class="animate" data-changes="text: info@hand.gallery, E-mail, Say hello, Contact, Get in touch, Questions?">info@hand.gallery</span></a></p>
+                    </div>
+                </div>
+                
+                <div class="small-6 columns text-right pad-top-2 animate" data-changes="textAlign: left, right; offset: 6, 0; textSize: 1, 2; toggle: text-caps">
+                    <div class="select">
+                        <p><a href="twitter.com/hello_hand"><span class="animate" data-changes="text: Twitter, @hello_hand">Twitter</span></a></p>
+                    </div>
+                </div>
+                
+            </div>
+            
+            <div class="row pad-top-5 text-2 animate" data-changes="letterSpacing: 0, 1, 2; toggle: text-caps; textSize: 1, 2">
+                
+                <div class="small-3 columns height-10 animate" data-changes="size: 3 10, 2 5, 4 14; offset: 0, 2; bgImg: img/3.jpg, img/4.jpg, img/5.jpg, img/8.jpg, img/9.jpg, img/10.jpg, img/11.jpg; toggle: empty">
+                    <div class="select">
+                        <div class="picture" style="background-image: url('img/5.jpg')"></div>
+                    </div>
+                </div>
+
+                
+                <div class="small-6 small-offset-1 columns text-right animate" data-changes="width: 6, 8; offset: 0, 2; textAlign: left, right">
+                    
+                    <div class="select">
+    
+                        <p class="pad-bottom-1">
+                            <b>Hand</b> was <span class="animate" data-changes="text: set up, founded, established, created">set up</span> in <span class="animate" data-changes="text: f, F">f</span>ebruary 2014 to <span class="animate" data-changes="text: challenge, upset, forget">challenge</span> the idea of the <span class="animate" data-changes="text: graduate show, exhibition, gallery, artists' residency">graduate show</span> and to re-shape its <span class="animate" data-changes="text: future, destiny">future</span>. We have since graduated, and the site has, too. In summer 2015 we will be re-<span class="animate" data-changes="text: launching, born">launching</span> as hand.gallery.
+                        </p>
+                        
+                    </div>
+                </div>
+                
+                <div class="small-2 columns height-9 animate" data-changes="size: 2 9, 3 8; offset: 0, 2; bgImg: img/1.jpg, img/2.jpg, img/6.jpg, img/7.jpg; toggle: empty">
+                    <div class="select">
+                        <div class="picture" style="background-image: url('img/6.jpg')"></div>
+                    </div>
+                </div>
+                
+    
+                <div class="small-6 small-offset-6 columns animate" data-changes="width: 6, 4; offset: 6, 2, 0; textAlign: left, right">
+                    <div class="select">
+                        <p>
+                            In addition to showcasing more exhibits we will be introducing new features including an online artist's residency space alongside our own editorial content.
+                        </p>
+                    </div>
+                </div>
+                
+                <div class="small-10 margin-top-4 columns height-18 animate" data-changes="size: 4 18, 10 24; offset: 0, 2; bgImg: img/3.jpg, img/4.jpg, img/5.jpg, img/8.jpg, img/9.jpg, img/10.jpg, img/11.jpg; toggle: empty">
+                    <div class="select">
+                        <div class="picture" style="background-image: url('img/11.jpg')"></div>
+                    </div>
+                </div>
+                
+            </div>
+            
+            
+        </div> <!-- .select -->
+        
+        
+        
+        <!-- RESOURCES -->
+        
+        <div class="animate text-center bg-black margin-top-12 pad-top-1">
+        
+            <div class="row animate" id="da" data-changes="textSize: 1, 2, 3, 4; toggle: text-caps">
+                <div class="small-12 columns">
+                    <div class="select">
+                        <p>Resources</p>
+                    </div>
+                    <hr >
+                </div>
+            </div>
+            <div class="row">
+                
+                <div class="small-4 columns pad-top-2 pad-bottom-2 text-1">
+                    <div class="select">
+                        <ul>
+                            
+                            <li><p><strong>Art Supplies</strong></p></li>
+                            <li><p><a href="http://www.atlantisart.co.uk" target="_blank">Atlantis</a></p></li>
+                            <li><p><a href="http://www.cowlingandwilcox.com" target="_blank">Cowling & Wilcox</a></p></li>
+                            <li><p><a href="http://www.cassart.co.uk" target="_blank">Cass Art</a></p></li>
+                            <li><p><a href="http://www.londongraphics.co.uk" target="_blank">London Graphic Centre</a></p></li>
+
+                        </ul>
+                        
+                        <ul>
+                            
+                            <li><p><strong>Binderies</strong></p></li>
+                            <li><p><a href="http://www.markcockrambooks.co.uk" target="_blank">Mark Cockram Books</a></p></li>
+                            <li><p><a href="http://someoddpages.com" target="_blank">Some Odd Pages</a></p></li>
+                            <li><p><a href="http://www.societyofbookbinders.com" target="_blank">The Society of Bookbinders</a></p></li>
+                            <li><p><a href="http://www.wyvernbindery.com" target="_blank">Wyvern Bindery</a></p></li>
+
+                        </ul>
+                        <ul>
+                            
+                            <li><p><strong>Bookshops</strong></p></li>
+                            <li><p><a href="http://www.wyvernbindery.com" target="_blank">Artwords</a></p></li>
+                            <li><p><a href="http://clairederouenbooks.com" target="_blank">Claire de Rouen Books</a></p></li>
+                            <li><p><a href="http://www.magmabooks.com" target="_blank">Magma</a></p></li>
+                            <li><p><a href="http://www.thelondonbookshopmap.org" target="_blank">The London Bookshop Map</a></p></li>
+                            <li><p><a href="http://bokship.org" target="_blank">X Marks the B&ouml;kship</a></p></li>
+
+                        </ul>
+                        
+                        <ul>
+                            
+                            <li><p><strong>Framers</strong></p></li>
+                            <li><p><a href="http://www.andersonhill.com.au" target="_blank">Anderson Hill</a></p></li>
+                            <li><p><a href="http://www.johnjones.co.uk" target="_blank">John Jones</a></p></li>
+                            <li><p><a href="http://londonpictureframing.co.uk" target="_blank">London Picture Framing</a></p></li>
+                            <li><p><a href="http://www.photographysales.co.uk" target="_blank">Mister Frame Man</a></p></li>
+                            <li><p><a href="http://www.railings-gallery.com" target="_blank">Railings Gallery</a></p></li>
+
+
+                        </ul>
+                        
+                    </div>
+                </div>
+                <div class="small-4 columns pad-top-2 pad-bottom-2 text-1">
+                    <div class="select">
+                        <ul>
+                            
+                            <li><p><strong>Libraries</strong></p></li>
+                            <li><p><a href="http://www.bfi.org.uk" target="_blank">BFI</a></p></li>
+                            <li><p><a href="http://www.bl.uk" target="_blank">The British Library</a></p></li>
+                            <li><p><a href="http://www.sbf.org.uk" target="_blank">St. Bride Library</a></p></li>
+                            <li><p><a href="http://www.vam.ac.uk/page/v/v-and-a-national/" target="_blank">V&A National</a></p></li>
+                            <li><p><a href="http://www.ycn.org" target="_blank">YCN</a></p></li>
+
+                        </ul>
+                        <ul>
+                            
+                            <li><p><strong>Paper Merchants</strong></p></li>
+                            <li><p><a href="https://www.antalis.co.uk/" target="_blank">Antalis</a></p></li>
+                            <li><p><a href="http://www.fedrigoni.co.uk" target="_blank">Fedrigoni</a></p></li>
+                            <li><p><a href="http://www.fennerpaper.co.uk" target="_blank">Fenner</a></p></li>
+                            <li><p><a href="https://www.gfsmith.com" target="_blank">G.F. Smith</a></p></li>
+                            <li><p><a href="http://www.paperbackpaper.co.uk" target="_blank">Paper Back</a></p></li>
+                            <li><p><a href="http://www.winter-company.com" target="_blank">Winter & Company</a></p></li>
+
+                        </ul>
+                        <ul>
+                            
+                            <li><p><strong>Printers</strong></p></li>
+                            <li><p><a href="http://www.bayeux.co.uk" target="_blank">Bayeaux</a></p></li>
+                            <li><p><a href="http://www.exwhyzed.co.uk" target="_blank">Ex Why Zed</a></p></li>
+                            <li><p><a href="http://www.generationprinting.com" target="_blank">Generation</a></p></li>
+                            <li><p><a href="http://www.leycol.com" target="_blank">Leycol</a></p></li>
+                            <li><p><a href="http://www.orange.uk.com" target="_blank">Orange</a></p></li>
+                            <li><p><a href="http://www.opalprint.co.uk" target="_blank">Opal</a></p></li>
+                            <li><p><a href="https://www.theprintspace.co.uk" target="_blank">The Print Space</a></p></li>
+                            <li><p><a href="http://peckhamprintstudio.com" target="_blank">Peckham Print Studio</a></p></li>
+                            <li><p><a href="http://pushprint.net" target="_blank">Push</a></p></li>
+
+                        </ul>
+                    </div>
+                </div>
+                <div class="small-4 columns pad-top-2 pad-bottom-2 text-1">
+                    <div class='select'>
+                       <ul>
+                            
+                            <li><p><strong>Type Foundries</strong></p></li>
+                            <li><p><a href="http://www.colophon-foundry.org" target="_blank">Colophon</a></p></li>
+                            <li><p><a href="https://commercialtype.com" target="_blank">Commercial Type</a></p></li>
+                            <li><p><a href="http://grillitype.com" target="_blank">Grilli Type</a></p></li>
+                            <li><p><a href="http://lineto.com" target="_blank">Lineto</a></p></li>
+                            <li><p><a href="http://www.milieugrotesque.com" target="_blank">Milieu Grotesque</a></p></li>
+                            <li><p><a href="http://www.optimo.co.uk/" target="_blank">Optimo</a></p></li>
+                            <li><p><a href="http://www.radimpesko.com" target="_blank">Radim Pesko</a></p></li>
+                            <li><p><a href="http://type-foundries-archive.com" target="_blank">Type Foundries Archive</a></p></li>
+
+                        </ul>
+                       <ul>
+                            
+                            <li><p><strong>Fabricators</strong></p></li>
+                            <li><p><a href="http://www.bobmooremodels.co.uk" target="_blank">Bob Moore Prototypes</a></p></li>
+                            <li><p><a href="http://charliewhinney.com" target="_blank">Charlie Winney Studio</a></p></li>
+                            <li><p><a href="http://www.cutlasercut.com" target="_blank">Cut Laser Cut</a></p></li>
+                            <li><p><a href="http://www.howlinghands.com" target="_blank">Howling Hands</a></p></li>
+                            <li><p><a href="http://www.londonglassblowing.co.uk" target="_blank">London Glassblowing</a></p></li>
+
+                        </ul>
+                    </div>
+                </div>
+            </div>
+            
+            <div class="row text-center">
+                <hr >
+                <p class="text-0-5 pad-bottom-1 text-bold">&copy;Hand.Gallery 2015</p>
+            </div>
+        
+        </div>
+        
+           
+        
+        
+        <script src="js/vendor/jquery.js"></script>
+        <script src="js/ajaxchimp.js"></script>
+        <script src="js/foundation.js"></script>
+        <script>
+            
+            var LINE_HEIGHT = 28,
+                MAX_DELAY = 300,
+                SCROLL_SAMPLE = 500,
+                MAX_CHANGES = 5,
+                MAX_TRIES = 2;
+            
+            var win = $(window),
+                doc = $(document);
+            
+            /* DELAY FROM SCROLL */
+            
+            var scrolls = [{pos: 0, distance: 0, time: 0}];
+            
+            function scrollRecorder(){
+                var pos = doc.scrollTop();
+                scrolls.unshift({
+                    pos: pos,
+                    distance: Math.max(pos, scrolls[0].pos) - Math.min(pos, scrolls[0].pos),
+                    time: Date.now()
+                });
+            };
+            
+            var then = Date.now();
+            
+            function getDelay(scale){
+                
+                scale = scale || 1;
+                
+                var now = Date.now();
+                var ret = MAX_DELAY * scale * (1-((now - then) / 1000 / 300)) ;
+                return ret;
+                
+                                /*
+
+                var now = Date.now();
+                
+                var scrollDistance = 0;
+                
+                var i = 0;
+                
+                while(now - scrolls[i].time < SCROLL_SAMPLE){
+                    
+                    scrollDistance += scrolls[i].distance;
+                    
+                    ++i;
+                    
+                }
+                
+                return MAX_DELAY * (1-(Math.min(scrollDistance, 500)/500)) * scale;
+                
+                */
+                
+                //return MAX_DELAY * scale;
+                
+            }
+            
+            /* ANIMATION QUEUEING */
+            
+            var queue = [];
+            
+            //+ Jonas Raoni Soares Silva
+            //@ http://jsfromhell.com/array/shuffle [v1.0]
+            function shuffle(o){ //v1.0
+                for(var j, x, i = o.length; i; j = Math.floor(Math.random() * i), x = o[--i], o[i] = o[j], o[j] = x);
+                return o;
+            };
+            
+            function newAnimation(){
+                
+                var els = $('.animate:onScreen');
+                
+                if(!els.length) return [];
+                
+                var el = els.eq(Math.floor(Math.random() * els.length));
+                
+                var changes = el.data('changes');
+                
+                if(!changes) return newAnimation();
+                
+                changes = shuffle(changes.split('; '));
+                
+                var numChanges = Math.floor(Math.random() * Math.min(MAX_CHANGES, changes.length)) + 1;
+                
+                var queue = [{verb: 'select', noun: 'box'}];
+                
+                for(var i = 0; i < numChanges; ++i){
+                    
+                    var change = changes[i];
+                    
+                    change = change.split(': ');
+                    
+                    var verb = change[0];
+                    
+                    if(!verbs[verb]){
+                        alert("Bad verb: " + verb);
+                        return [];
+                    }
+                    
+                    var nouns = change[1].split(', ')
+                    
+                    var numTries = Math.floor(Math.random() * Math.min(MAX_TRIES, nouns.length + 1)) + 1;
+                    
+                    var noun;
+                    
+                    if(verbs[verb].text){
+                        queue.push({verb: 'select', noun: 'text'});
+                    }
+                    
+                    var lastNoun = nouns[0];
+                    
+                    for(var j = 0; j < numTries; ++j){
+                        
+                        nouns = shuffle(nouns);
+                        
+                        for(var k = j; k < nouns.length; k++){
+                            
+                            noun = nouns[k];
+                            
+                            if(noun !== lastNoun || (j === 0 && verbs[verb].test(el, noun)) ){
+                                
+                                if(verb === 'text' && noun.charAt(0) !== '<'){
+                                    for(var l = 0; l < noun.length; l++){
+                                        var delay = l === noun.length - 1 ?  1 : 0.1;
+                                        queue.push({verb: verb, noun: noun.slice(0,l+1), delay: delay})
+                                    }
+                                } else {
+                                    queue.push({verb: verb, noun: noun});
+                                }
+                                
+                                break;
+                                
+                            }
+                            
+                        }
+                        
+                        lastNoun = noun;
+
+                    }
+                    
+                    if(verbs[verb].text){
+                        queue.push({verb: 'select', noun: 'text'});
+                    }
+                    
+                }
+                
+                queue.push({verb: 'select', noun: 'box'});
+                
+                queue.element = el;
+                
+                return queue;
+                
+            }
+            
+            var verbs = {
+                add: {
+                    test: function(element, noun){
+                        return !element.hasClass(noun);
+                    },
+                    use: function(element, noun){
+                        element.addClass(noun);
+                    }
+                },
+                remove: {
+                    test: function(element, noun){
+                        return element.hasClass(noun);
+                    },
+                    use: function(element, noun){
+                        element.removeClass(noun);
+                    }
+                },
+                toggle: {
+                    test: function(element, noun){
+                        return true;
+                    },
+                    use: function(element, noun){
+                        element.toggleClass(noun);
+                    }
+                },
+                width: {
+                    test: function(element, noun){
+                        return !element.hasClass('small-'+noun);
+                    },
+                    use: function(element, noun){
+                       element.removeClass (function (index, css) {
+                            return (css.match (/(^|\s)small-\S+/g) || []).join(' ');
+                        });
+                        element.addClass('small-'+noun);
+                     }
+                },
+                offset: {
+                    test: function(element, noun){
+                        return !element.hasClass('small-offset-'+noun);
+                    },
+                    use: function(element, noun){
+                       element.removeClass (function (index, css) {
+                            return (css.match (/(^|\s)small-offset-\S+/g) || []).join(' ');
+                        });
+                        element.addClass('small-offset-'+noun);
+                     }
+                },
+                bgImg: {
+                    test: function(element, noun){
+                        return element.find('.picture').css('background-image') !== 'url("' + noun + '")';
+                    },
+                    use: function(element, noun){
+                        element.find('.picture').css('background-image', 'url("' + noun + '")');
+                    }
+                },
+                text: {
+                    test: function(element, noun){
+                        return element.html() !== noun;
+                    },
+                    use: function(element,noun){
+                        element.html(noun);
+                    },
+                    text: true
+                },
+                textSize: {
+                    test: function(element, noun){
+                        return !element.hasClass('text-'+noun);
+                    },
+                    use: function(element, noun){
+                       element.removeClass (function (index, css) {
+                            return (css.match (/(^|\s)text-[0-9]+/g) || []).join(' ');
+                        });
+                        element.addClass('text-'+noun);
+                     },
+                     text: true
+                },
+                textAlign: {
+                    test: function(element, noun){
+                        if(noun === 'left') return element.hasClass('text-center') || element.hasClass('text-right');
+                        return !element.hasClass('text-'+noun);
+                    },
+                    use: function(element, noun){
+                        element.removeClass ('text-right text-center');
+                        if(noun !== 'left') element.addClass('text-'+noun);
+                     },
+                },
+                letterSpacing: {
+                    test: function(element, noun){
+                        return element.css('letter-spacing') !== noun+'px';
+                    },
+                    use: function(element, noun){
+                       element.css('letter-spacing', noun)
+                     },
+                },
+                height: {
+                    test: function(element, noun){
+                        return !element.hasClass('height-'+noun);
+                    },
+                    use: function(element, noun){
+                       element.removeClass (function (index, css) {
+                            return (css.match (/(^|\s)height-\S+/g) || []).join(' ');
+                        });
+                        element.addClass('height-'+noun);
+                     }
+                },
+                size: {
+                    test: function(element, noun){
+                        noun = noun.split(' ');
+                        var w = noun[0], h = noun[1];
+                        return !(element.hasClass('height-'+h) && element.hasClass('small-'+w));
+                    },
+                    use: function(element, noun){
+                        noun = noun.split(' ');
+                        var w = noun[0], h = noun[1];
+                        element.removeClass (function (index, css) {
+                            return (css.match (/(^|\s)height-\S+/g) || []).join(' ');
+                        });
+                        element.removeClass (function (index, css) {
+                            return (css.match (/(^|\s)small-\S+/g) || []).join(' ');
+                        });
+                        element.addClass('height-'+h);
+                        element.addClass('small-'+w);
+                     }
+                },
+                padTop: {
+                    test: function(element, noun){
+                        return !element.hasClass('pad-top-'+noun);
+                    },
+                    use: function(element, noun){
+                       element.removeClass (function (index, css) {
+                            return (css.match (/(^|\s)pad-top-\S+/g) || []).join(' ');
+                        });
+                        element.addClass('pad-top-'+noun);
+                     }
+                },
+                top: {
+                    test: function(element, noun){
+                        return !element.hasClass('pad-top-'+noun);
+                    },
+                    use: function(element, noun){
+                       element.removeClass (function (index, css) {
+                            return (css.match (/(^|\s)pad-top-\S+/g) || []).join(' ');
+                        });
+                        element.addClass('pad-top-'+noun);
+                     }
+                },
+                select: {
+                    test: function(element, noun){
+                        return true;
+                    },
+                    use: function(element, noun){
+                        if(noun === 'box') return element.selectBox();
+                        if(noun === 'text'){
+                            if(element.is('span') || element.is('p')) return element.toggleClass('selected')
+                            return element.find('p').toggleClass('selected');
+                        }
+                    }
+                },
+                bg: {
+                    test: function(element, noun){
+                        return element.css('background-color') !== noun
+                    },
+                    use: function(element, noun){
+                        element.css('background-color', noun);
+                    }
+                },
+                font: {
+                    test: function(element, noun){
+                        return element.css('font-family') !== noun;
+                    },
+                    use: function(element, noun){
+                        element.css('font-family', noun);
+                    }
+                },
+                move: {
+                    test: function(element, noun){
+                        return true;
+                    },
+                    use: function(element, noun){
+                        element.css({
+                            top: Math.random() * win.height(),
+                            left: Math.random() * win.width()
+                        });
+                    }
+                }
+            };
+            
+            (function() {
+                var lastTime = 0;
+                var vendors = ['ms', 'moz', 'webkit', 'o'];
+                for(var x = 0; x < vendors.length && !window.requestAnimationFrame; ++x) {
+                    window.requestAnimationFrame = window[vendors[x]+'RequestAnimationFrame'];
+                    window.cancelAnimationFrame = window[vendors[x]+'CancelAnimationFrame'] 
+                                               || window[vendors[x]+'CancelRequestAnimationFrame'];
+                }
+             
+                if (!window.requestAnimationFrame)
+                    window.requestAnimationFrame = function(callback, element) {
+                        var currTime = new Date().getTime();
+                        var timeToCall = Math.max(0, 16 - (currTime - lastTime));
+                        var id = window.setTimeout(function() { callback(currTime + timeToCall); }, 
+                          timeToCall);
+                        lastTime = currTime + timeToCall;
+                        return id;
+                    };
+             
+                if (!window.cancelAnimationFrame)
+                    window.cancelAnimationFrame = function(id) {
+                        clearTimeout(id);
+                    };
+            }());
+            
+            function loop(){
+                
+                var delay;
+                
+                if(!queue.length) queue = newAnimation();
+                if(queue[0]) {
+                    verbs[queue[0].verb].use(queue.element, queue[0].noun);
+                    delay = queue[0].delay;
+                };
+                queue.shift();
+                setTimeout(function(){
+                    window.requestAnimationFrame(loop);
+                }, getDelay(delay));
+                
+                //Math.random() > 0 ? animate(anims[Math.floor(Math.random() * anims.length)], loop) : alter(loop);
+                
+            }
+            
+            function layout(){
+                $('.fullHeight').height(doc.height())
+            }
+                
+            var handles = [
+                $('<div class="handle nw"></div>'),
+                $('<div class="handle n"></div>'),
+                $('<div class="handle ne"></div>'),
+                $('<div class="handle e"></div>'),
+                $('<div class="handle w"></div>'),
+                $('<div class="handle sw"></div>'),
+                $('<div class="handle s"></div>'),
+                $('<div class="handle se"></div>'),
+            ];
+            
+            $.fn.selectBox = function(){
+                this.find('.select')
+                    .toggleClass('selected')
+                    .append(handles);
+            }
+            
+            $.expr[":"].onScreen = function(elem) {
+                var $window = $(window)
+                var viewport_top = $window.scrollTop()
+                var viewport_height = $window.height()
+                var viewport_bottom = viewport_top + viewport_height
+                var $elem = $(elem)
+                var top = $elem.offset().top
+                var height = $elem.height()
+                var bottom = top + height
+            
+                return (top >= viewport_top && top < viewport_bottom) ||
+                       (bottom > viewport_top && bottom <= viewport_bottom) ||
+                       (height > viewport_height && top <= viewport_top && bottom >= viewport_bottom)
+            }
+        
+            
+            $(function(){
+                
+                $('#mc-form').ajaxChimp({
+                    url: 'http://gallery.us10.list-manage.com/subscribe/post?u=9421ee13f187bee589437391f&amp;id=3bee6913cb',
+                    callback: function(r){
+                        console.log(r);
+                        if(r.result === 'success'){
+                            $('#mc-btn').html('Thank you').attr('disabled','disabled');
+                        } else {
+                            $('#mc-btn').html('&times;');
+                            setTimeout(function(){
+                                $('#mc-btn').html('Subscribe');
+                            }, 1000);
+                        }
+                        
+                        
+                    }
+                })
+                
+                win
+                    .on('scroll', scrollRecorder)
+                    .on('resize', layout);
+                
+                layout();
+                loop();
+            })
+
+        </script>
+        
+    </body>
+    
+</html>

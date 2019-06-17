@@ -1,0 +1,173 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        
+        <style>
+            
+            
+            
+        </style>
+        
+        <style id="baseline">
+            
+            
+            
+        </style>
+        
+    </head>
+    <body class="baseline-grid">
+        
+        <script>
+            
+            var baseLineHeight = 14,
+                baseFontSize = 12,
+                push = 0.3,
+                pixel = 1 / baseLineHeight,
+                fontSizes = 12,
+                fontSizeIncrement = 1,
+                metrics = 30,
+                metricsIncrement = .5,
+                precision = 3;
+                
+            function p(num){
+                return Math.round(num*Math.pow(10,precision))/Math.pow(10,precision);
+            }
+                
+            var EOL = '\n',
+                TAB = '\t';
+            
+            function dash(number){
+                return number.toString().replace('.', '-')
+            }
+            
+            function rule(name, props){
+                
+                var rules = '';
+                
+                for(prop in props){
+                    rules += TAB + prop + ': ' + props[prop] + ';' + EOL;
+                }
+                
+                return name + ' {' + EOL + rules + '}' + EOL;
+            }
+            
+            function typeSize(size, push){
+                
+                var i = size;
+                
+                while(!push && i){
+                    if(pushes[i]) push = pushes[i];
+                    i -= fontSizeIncrement;
+                }
+                
+                var name = 'p.text-' + dash(size) + ', .text-' + dash(size) + ' p';
+                
+                if(size === 1){
+                    name = 'p, ' + name;
+                }
+                
+                return rule(name, {
+                    'line-height': size + 'rem',
+                    'font-size': p(size * (baseFontSize / baseLineHeight)) + 'rem',
+                    'padding-top': push + 'rem',
+                    'margin-bottom': -push + 'rem',
+                });
+                
+            }
+            
+            function onePropRule( name, value ){
+                var propName = propNames[name] || name;
+                var prop = {};
+                prop[propName] = value + 'rem';
+                return rule('.'+name+'-'+dash(value), prop).replace(/\s|;/g, '');
+            }
+            
+            var metricsNames = ['height', 'pad-top', 'pad-bottom', 'margin-top', 'top', 'bottom']
+            
+            var propNames = {
+                "pad-top": 'padding-top',
+                "pad-bottom": 'padding-bottom',
+            }
+            
+            var pushes = {1: push};
+            
+            function compile(){
+                
+                var ret = '';
+                
+                ret += 'html {' + EOL;
+                ret += TAB + 'font-size: ' + p(baseLineHeight * 6.25) + '%' + EOL;
+                ret += '}' + EOL + EOL;
+                
+                ret += '@media screen and (max-width: 1024px){' + EOL;
+                ret += TAB + 'html {' + EOL;
+                ret += TAB + TAB + 'font-size: ' + p(baseLineHeight * 6.25 * 0.8571) + '%' + EOL;
+                ret += TAB + '}' + EOL;
+                ret += '}' + EOL + EOL;
+                
+                ret += '@media screen and (max-width: 640px){' + EOL;
+                ret += TAB + 'html {' + EOL;
+                ret += TAB + TAB + 'font-size: ' + p(baseLineHeight * 6.25 * 0.7142) + '%' + EOL;
+                ret += TAB + '}' + EOL;
+                ret += '}' + EOL + EOL;
+                
+                ret += 'html, body, p{' + EOL;
+                ret += TAB + 'margin: 0;' + EOL;
+                ret += '}' + EOL + EOL;
+                
+                var i, j;
+                
+                for(i = 1; i <= fontSizes; i += fontSizeIncrement){
+                    
+                    ret += typeSize(i, pushes[i] || push) + EOL;
+                    
+                    var div = document.createElement('div');
+                    div.className = 'height-' + Math.ceil(i);
+                    div.style.overflow = 'hidden';
+                    div.style.whiteSpace = 'nowrap';
+                    div.style.borderBottom = '1px solid green';
+                    div.style.boxSizing = 'border-box';
+                    var paragraph = document.createElement('p');
+                    var text = document.createTextNode('This is font size ' + i);
+                    paragraph.className = 'text-' + dash(i);
+                    paragraph.appendChild(text);
+                    div.appendChild(paragraph);
+                    
+                    document.body.appendChild(div);
+
+                }
+                
+                for( i = 0; i < metricsNames.length; i++){
+                    
+                    for(j = metricsIncrement; j <= metrics; j += metricsIncrement){
+                        ret += onePropRule(metricsNames[i], j) + EOL;
+                    }
+                    
+                    ret += EOL;
+                    
+                }
+                
+                ret += '.baseline-grid {' + EOL;
+                ret += TAB + 'background: -moz-linear-gradient(top,  rgba(255,48,251,0) 0%, rgba(255,48,251,0) ' + (p(100 - (100/baseFontSize)) - (1/Math.pow(10, precision))) + '%, rgba(255,48,251,1) ' + p(100 - (100/baseFontSize)) + '%, rgba(255,48,251,1) 100%);' + EOL;
+                ret += TAB + '-webkit-gradient(linear, left top, left bottom, color-stop(0%,rgba(255,48,251,0)), color-stop(' + (p(100 - (100/baseFontSize)) - (1/Math.pow(10, precision))) + '%,rgba(255,48,251,0)), color-stop(' + p(100 - (100/baseFontSize)) + '%,rgba(255,48,251,1)), color-stop(100%,rgba(255,48,251,1)));' + EOL;
+                ret += TAB + 'background: -webkit-linear-gradient(top,  rgba(255,48,251,0) 0%,rgba(255,48,251,0) ' + (p(100 - (100/baseFontSize)) - (1/Math.pow(10, precision))) + '%,rgba(255,48,251,1) ' + p(100 - (100/baseFontSize)) + '%,rgba(255,48,251,1) 100%);' + EOL;
+                ret += TAB + 'background: -o-linear-gradient(top,  rgba(255,48,251,0) 0%,rgba(255,48,251,0) ' + (p(100 - (100/baseFontSize)) - (1/Math.pow(10, precision))) + '%,rgba(255,48,251,1) ' + p(100 - (100/baseFontSize)) + '%,rgba(255,48,251,1) 100%);' + EOL;
+                ret += TAB + 'background: -ms-linear-gradient(top,  rgba(255,48,251,0) 0%,rgba(255,48,251,0) ' + (p(100 - (100/baseFontSize)) - (1/Math.pow(10, precision))) + '%,rgba(255,48,251,1) ' + p(100 - (100/baseFontSize)) + '%,rgba(255,48,251,1) 100%);' + EOL;
+                ret += TAB + 'background: linear-gradient(to bottom,  rgba(255,48,251,0) 0%,rgba(255,48,251,0) ' + (p(100 - (100/baseFontSize)) - (1/Math.pow(10, precision))) + '%,rgba(255,48,251,1) ' + p(100 - (100/baseFontSize)) + '%,rgba(255,48,251,1) 100%)' + EOL;
+                ret += TAB + 'background-size: 100% 1rem;' + EOL;
+                ret += TAB + '-webkit-background-size: 100% 1rem;' + EOL;
+                ret += TAB + 'background-repeat: repeat-y;' + EOL;
+                ret += '}';
+                
+                document.getElementById('baseline').appendChild(document.createTextNode(ret));
+            
+                return ret;
+                
+            }
+            
+            compile();
+            
+        </script>
+        
+    </body>
+</html>

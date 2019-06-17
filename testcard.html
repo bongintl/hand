@@ -1,0 +1,107 @@
+<html>
+    
+    <head>
+        
+        <title>Please Stand By</title>
+        
+        <style>
+            
+            *{
+                margin: 0;
+                padding: 0;
+            }
+            
+            
+            
+        </style>
+        
+    </head>
+    
+    <body>
+        
+        <canvas id="c" width=50 height=50 ></canvas>
+        
+        <script src="js/perlin.js"></script>
+        <script src="js/glitch.js"></script>
+        <script>
+            
+            var canvas = document.getElementById('c'),
+                ctx = canvas.getContext('2d');
+                
+            window.addEventListener('resize', function(){
+                
+                canvas.width = window.innerWidth;
+                canvas.height = window.innerHeight;
+                
+            });
+            
+            var generator = new PerlinNoise();
+            
+            function wave(wavelength){
+                var idata = ctx.getImageData(0,0,canvas.width,canvas.height);
+                
+                var rowWidth = canvas.width * 4;
+                
+                var tmpR, tmpG, tmpB;
+                
+                for(var i = 0; i < canvas.height; ++i){
+                    
+                    var rowStart = i * rowWidth;
+                    var offset = Math.round(generator.noise1d(canvas.height/i) * wavelength * 4);
+                    console.log(offset);
+                    
+                    var row = idata.data.slice( rowStart, rowWidth );
+                    
+                    var tmp = row.slice(0, offset);
+                    
+                    row = row.concat(tmp);
+                    
+                    idata.data.splice.apply(idata.data, [rowStart, 0].concat(row));
+
+                }
+                
+                ctx.putImageData(idata, 0,0)
+                
+            }
+            
+            function testCard(){
+                
+                var colours = [
+                    '#ffffff', '#ffff00', '#00ffff', '#00ff00', '#ff00ff', '#ff0000', '#0000ff',
+                    '#0000ff', '#ff00ff', '#ffff00', '#ff0000', '#00ffff', '#ffffff', '#000000'
+                    ];
+                
+                var stripeWidth = Math.ceil(canvas.width / 7);
+                
+                for(var i = 0; i < 14; ++i){
+                    
+                    ctx.fillStyle = colours[i];
+                    
+                    if(i < 7){
+                        ctx.fillRect(stripeWidth * i, 0, stripeWidth, canvas.height * 0.85);
+                    } else {
+                        ctx.fillRect(stripeWidth * (i - 7), canvas.height * 0.85, stripeWidth, canvas.height * 0.15);
+                    }
+                    
+
+                }
+                
+            }
+            
+            function loop(){
+                
+                testCard();
+                wave(20);
+                
+                
+                //window.requestAnimationFrame(loop);
+                
+            }
+            
+            loop();
+            
+        </script>
+        
+    </body>
+    
+</html>
